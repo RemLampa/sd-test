@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Bree Serif Regular';
+  src: url('../fonts/BreeSerif-Regular.otf') format('opentype');
+}
+
 body {
   background-color: #FFFCF3;
+  font-family: 'Bree Serif Regular', 'Times New Roman', Georgia, Serif;
 }

@@ -60,8 +60,12 @@ module.exports = {
                 })
             },
             {
-                test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
-                use: 'file-loader'
+                test: /\.(woff2?|ttf|eot|svg|otf)$/,
+                loader: 'file-loader',
+                options: {
+                    name: './fonts/[name].[ext]',
+                    publicPath: '../'
+                }
             }
         ]
     },
