@@ -2,8 +2,6 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const WebpackChunkHash = require('webpack-chunk-hash');
 
 const minifyHTML = (env) => {
@@ -30,14 +28,14 @@ module.exports = {
         filename: path.join('js', '[name].[chunkhash].js')
     },
     module: {
-        rules: [
+        loaders: [
             {
                 test: /\.jsx?$/,
                 exclude: [/node_modules/],
-                use: [{
-                    loader: 'babel-loader',
-                    options: { presets: ['es2015'] }
-                }],
+                loader: 'babel-loader',
+                options: {
+                    presets: ['es2015']
+                },
                 include: path.join(__dirname, 'src')
             },
             {
@@ -63,9 +61,29 @@ module.exports = {
                 test: /\.(woff2?|ttf|eot|svg|otf)$/,
                 loader: 'file-loader',
                 options: {
-                    name: './fonts/[name].[ext]',
+                    hash: 'sha512',
+                    digest: 'hex',
+                    name: 'fonts/[hash].[ext]',
                     publicPath: '../'
                 }
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    {
+                        loader: 'responsive-loader',
+                        options: {
+                            sizes: [300, 600, 1200, 2000],
+                            placeholder: true,
+                            placeholderSize: 50,
+                            adapter: require('responsive-loader/sharp'),
+                            hash: 'sha512',
+                            digest: 'hex',
+                            name: 'static/[hash].[ext]',
+                            publicPath: '../'
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -79,13 +97,6 @@ module.exports = {
         new ExtractTextPlugin({
             filename: path.join('css', '[name].[chunkhash].css'),
             allChunks: true
-        }),
-        new CopyWebpackPlugin([{
-            from: './static',
-            to: './static'
-        }]),
-        new ImageminPlugin({
-            test: /\.(jpe?g|png|gif|svg)$/i
         }),
         new WebpackChunkHash()
     ],

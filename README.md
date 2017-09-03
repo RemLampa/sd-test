@@ -1,5 +1,13 @@
 # Sleighdogs Test
 
+### Initial setup
+
+```bash
+$ npm install
+```
+
+Note: Requires Python >= v.2.5.0 & < 3.0.0 (due to the use of `gyp` in creating responsive images).
+
 ### Development build
 
 ```bash
