@@ -6,6 +6,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const WebpackChunkHash = require('webpack-chunk-hash');
 
+const minifyHTML = (env) => {
+    if (env === 'production') {
+        return {
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+        };
+    }
+
+    return false;
+};
+
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
@@ -56,13 +70,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'SleighDogs Test',
             template: './template/index.ejs',
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true
-            }
+            minify: minifyHTML(process.env.NODE_ENV)
         }),
         new ExtractTextPlugin({
             filename: path.join('css', '[name].[chunkhash].css'),
