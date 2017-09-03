@@ -25,10 +25,10 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: path.join('js', '[name].[chunkhash].js')
+        filename: path.join('scripts', '[name].js?[chunkhash]')
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: [/node_modules/],
@@ -42,8 +42,21 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     use: [
-                        'style-loader',
-                        'css-loader?sourceMap'
+                        {
+                            loader: 'style-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'resolve-url-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
                     ]
                 })
             },
@@ -51,9 +64,26 @@ module.exports = {
                 test: /\.(sass|scss)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
+                    publicPath: '../',
                     use: [
-                        'css-loader?sourceMap',
-                        'sass-loader?sourceMap'
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'resolve-url-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
                     ]
                 })
             },
@@ -63,27 +93,21 @@ module.exports = {
                 options: {
                     hash: 'sha512',
                     digest: 'hex',
-                    name: 'fonts/[hash].[ext]',
-                    publicPath: '../'
+                    name: 'fonts/[name].[ext]?[hash]'
                 }
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    {
-                        loader: 'responsive-loader',
-                        options: {
-                            sizes: [300, 600, 1200, 2000],
-                            placeholder: true,
-                            placeholderSize: 50,
-                            adapter: require('responsive-loader/sharp'),
-                            hash: 'sha512',
-                            digest: 'hex',
-                            name: 'static/[hash].[ext]',
-                            publicPath: '../'
-                        }
-                    }
-                ]
+                loader: 'responsive-loader',
+                options: {
+                    sizes: [300, 600, 1200, 2000],
+                    placeholder: true,
+                    placeholderSize: 50,
+                    adapter: require('responsive-loader/sharp'),
+                    hash: 'sha512',
+                    digest: 'hex',
+                    name: 'static/[name].[ext]?[hash]',
+                }
             }
         ]
     },
@@ -95,11 +119,17 @@ module.exports = {
             minify: minifyHTML(process.env.NODE_ENV)
         }),
         new ExtractTextPlugin({
-            filename: path.join('css', '[name].[chunkhash].css'),
+            filename: 'styles/[name].css?[chunkhash]',
             allChunks: true
         }),
         new WebpackChunkHash()
     ],
+    resolve: {
+        modules: [
+            path.join(__dirname, 'src'),
+            'node_modules'
+        ]
+    },
     devServer: {
         contentBase: path.resolve(__dirname, 'src')
     },

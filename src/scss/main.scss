@@ -1,17 +1,73 @@
+$background: #FFFCF3;
+
 @font-face {
   font-family: 'Bree Serif Regular';
   src: url('../fonts/BreeSerif-Regular.otf') format('opentype');
 }
 
+html {
+  font-size: 100%;
+}
+
 body {
-  background-color: #FFFCF3;
+  margin: 0;
+  padding: 0;
+  background-color: $background;
   font-family: 'Bree Serif Regular', 'Times New Roman', Georgia, Serif;
 }
 
 header {
-  background-image: url('../static/photo 1.jpeg');
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 85vh;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url('../static/photo 1.jpeg?size=2000');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: right bottom;
+  background-size: cover;
 
   h1 {
+    font-size: 2.8rem;
 
+    text-align: center;
+
+    margin: 0;
+    position: relative;
+    padding: 2.5vh 3vw;
+    background: $background;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+
+    @media screen and (min-width: 300px) {
+      width: 100%;
+    }
+
+    @media screen and (min-width: 600px) {
+      max-width: 80%;
+    }
+
+    @media screen and (min-width: 1000px) {
+      max-width: 40%;
+    }
+
+    @media screen and (min-width: 1200px) {
+      max-width: 25%;
+    }
   }
 }
+
+h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+h3, p, span {
+  font-size: 1.15rem;
+}
+
