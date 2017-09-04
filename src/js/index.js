@@ -1,3 +1,3 @@
-let test = input => console.log(input);
+import slider from './slider';
 
-test('test pass');
+slider();

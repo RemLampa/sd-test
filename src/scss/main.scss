@@ -80,15 +80,19 @@ header {
   padding: 0 2vw;
 
   @media screen and (min-width: $phone) {
-    width: 100%;
+    width: 95%;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: $tablet) {
     max-width: 80%;
   }
 
+  @media screen and (min-width: $desktop) {
+    max-width: 75%;
+  }
+
   @media screen and (min-width: $large-screen) {
-    max-width: 60%;
+    max-width: 65%;
   }
 
   h2 {
@@ -103,6 +107,28 @@ header {
 
   #featured-products {
     margin-bottom: 10vh;
+
+    .swiper-slide {
+      overflow-x: hidden;
+      margin-bottom: 5vh;
+
+      img, .product-title {
+        margin-bottom: 2.5vh;
+      }
+
+      img {
+        position: relative;
+        left: -50%;
+        top: 0%;
+      }
+
+      .product-title {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+    }
 
     #shop-button {
       width: 100%;
@@ -127,18 +153,6 @@ header {
     }
   }
 
-  ul#products, ul#news {
-    list-style-type: none;
-
-  }
-
-  ul#products {
-    margin: 0 0 5vh;
-
-    display: -webkit-flex;
-    display: flex;
-  }
-
   ul#news {
     display: -webkit-flex;
     display: flex;
@@ -146,6 +160,8 @@ header {
     flex-flow: row wrap;
     -webkit-justify-content: space-between;
     justify-content: space-between;
+
+    list-style-type: none;
 
     li {
       width: 30%;
