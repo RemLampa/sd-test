@@ -34,12 +34,15 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: [/node_modules/],
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015']
-                },
-                include: path.join(__dirname, 'src')
+                include: [/node_modules\/dom7/, /src\/js/],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['es2015']
+                        }
+                    }
+                ]
             },
             {
                 test: /\.css$/,
@@ -134,5 +137,5 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, 'src')
     },
-    devtool: 'source-map'
+    devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map'
 };

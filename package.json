@@ -8,6 +8,8 @@
     "dev:watch": "webpack -w --progress --colors",
     "start": "./node_modules/.bin/webpack-dev-server",
     "build": "NODE_ENV=production webpack -p --progress --colors",
+    "gh-pages": "gh-pages -d dist -b gh-pages",
+    "deploy": "npm run build && npm run gh-pages",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ar-Em J. Lampa",

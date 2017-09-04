@@ -37,3 +37,9 @@ $ npm start
 ```
 
 Point browser to [`http://localhost:8080`](http://localhost:8080)
+
+## To deploy to Github Pages
+
+```bash
+$ npm run deploy
+```
