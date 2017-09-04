@@ -18,13 +18,15 @@ const minifyHTML = (env) => {
     return false;
 };
 
+const buildFolder = process.env.NODE_ENV === 'production' ? 'dist' : 'dev';
+
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
         index: ['./js/index.js', './scss/main.scss']
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, buildFolder),
         filename: path.join('scripts', '[name].js?[chunkhash]')
     },
     module: {
@@ -100,7 +102,7 @@ module.exports = {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 loader: 'responsive-loader',
                 options: {
-                    sizes: [300, 600, 1200, 2000],
+                    sizes: [300, 600, 1000, 1600, 2000],
                     placeholder: true,
                     placeholderSize: 50,
                     adapter: require('responsive-loader/sharp'),
@@ -112,7 +114,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin([buildFolder]),
         new HtmlWebpackPlugin({
             title: 'SleighDogs Test',
             template: './template/index.ejs',

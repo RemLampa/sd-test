@@ -20,7 +20,7 @@ or
 $ npm run dev:watch
 ```
 
-This will generate an unminified `index.html` file in `/dist`.
+This will generate an unminified `index.html` file in `/dev`.
 
 ### Production build
 

@@ -1,24 +1,38 @@
 $background: #FFFCF3;
 
+$phone: 300px;
+$tablet: 600px;
+$laptop: 1000px;
+$desktop: 1600px;
+$large-screen: 2000px;
+
 @font-face {
   font-family: 'Bree Serif Regular';
   src: url('../fonts/BreeSerif-Regular.otf') format('opentype');
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   font-size: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   background-color: $background;
   font-family: 'Bree Serif Regular', 'Times New Roman', Georgia, Serif;
+
+  @media screen and (min-width: $large-screen) {
+    max-width: $large-screen;
+    margin: 0 auto;
+  }
 }
 
 header {
-  margin: 0;
-  padding: 0;
   width: 100vw;
   height: 85vh;
   vertical-align: middle;
@@ -37,37 +51,130 @@ header {
 
     text-align: center;
 
-    margin: 0;
     position: relative;
     padding: 2.5vh 3vw;
     background: $background;
     opacity: 0.8;
     filter: alpha(opacity=80);
 
-    @media screen and (min-width: 300px) {
+    @media screen and (min-width: $phone) {
       width: 100%;
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: $tablet) {
       max-width: 80%;
     }
 
-    @media screen and (min-width: 1000px) {
+    @media screen and (min-width: $laptop) {
       max-width: 40%;
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: $desktop) {
       max-width: 25%;
     }
   }
 }
 
-h2 {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
+#wrapper {
+  margin: 5vh auto 10vh;
+  padding: 0 2vw;
 
-h3, p, span {
-  font-size: 1.15rem;
-}
+  @media screen and (min-width: $phone) {
+    width: 100%;
+  }
 
+  @media screen and (min-width: $desktop) {
+    max-width: 80%;
+  }
+
+  @media screen and (min-width: $large-screen) {
+    max-width: 60%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5vh;
+    text-transform: uppercase;
+  }
+
+  h3, p, span {
+    font-size: 1.15rem;
+  }
+
+  #featured-products {
+    margin-bottom: 10vh;
+
+    #shop-button {
+      width: 100%;
+      text-align: center;
+
+      button {
+        background-color: #D3EED9;
+        border: none;
+
+        margin: 0 auto;
+
+        padding: 1vh 10vw;
+
+        font-family: 'Bree Serif Regular', 'Times New Roman', Georgia, Serif;
+        font-size: 1.15rem;
+        text-transform: uppercase;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  ul#products, ul#news {
+    list-style-type: none;
+
+  }
+
+  ul#products {
+    margin: 0 0 5vh;
+
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  ul#news {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+
+    li {
+      width: 30%;
+      min-width: 320px;
+      overflow: hidden;
+
+      img, h3, p {
+        margin-bottom: 2vh;
+      }
+
+      img {
+        position: relative;
+        left: -20%;
+        top: 0%;
+      }
+
+      a {
+        display: block;
+        margin-bottom: 5vh;
+
+        &:link {
+          color: #98938E;
+          text-decoration: none;
+        }
+
+        &:hover {
+          color: #000000;
+        }
+      }
+    }
+  }
+}
